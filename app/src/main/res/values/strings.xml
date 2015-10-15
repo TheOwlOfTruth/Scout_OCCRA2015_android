@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Scout</string>
+    <string name="preference_file_key">userName</string>
+</resources>
