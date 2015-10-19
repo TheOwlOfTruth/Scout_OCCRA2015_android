@@ -7,7 +7,19 @@
     tools:showIn="@layout/activity_scouting" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="org.team4384.scout.ScoutingActivity">
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin" android:text="This is a scrollView" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView android:text="Hello User! Fill out some basic information and let's get started!"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
+            android:textSize="20sp"
+            android:id="@+id/scrollText" />
+
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

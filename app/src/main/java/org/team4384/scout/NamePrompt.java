@@ -30,6 +30,7 @@ public class NamePrompt extends AppCompatActivity implements View.OnClickListene
                 //Creates a reference to the name blank, and then gets the string in the blank from it.
                 EditText nameEnter = (EditText) findViewById(R.id.nameEnter);
                 String userName = nameEnter.getText().toString();
+
                 //Saves the name to the preferences section for further use later on.
                 String preferenceKey = "org.team4384.Scout.NAME";
                 SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);

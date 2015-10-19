@@ -17,7 +17,7 @@
         </activity>
         <activity
             android:name=".ScoutingActivity"
-            android:label="@string/title_activity_scouting"
+            android:label="Scouting Form"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
