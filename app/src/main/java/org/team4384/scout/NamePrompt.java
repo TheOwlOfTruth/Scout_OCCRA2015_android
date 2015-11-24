@@ -28,20 +28,26 @@ public class NamePrompt extends AppCompatActivity implements View.OnClickListene
             //If the button clicked is the scoutButton:
             case R.id.scoutButton:
                 //Creates a reference to the name blank, and then gets the string in the blank from it.
-                EditText nameEnter = (EditText) findViewById(R.id.nameEnter);
-                String userName = nameEnter.getText().toString();
+                final EditText nameEnter = (EditText) findViewById(R.id.nameEnter);
+                final String userName = nameEnter.getText().toString();
 
                 //Saves the name to the preferences section for further use later on.
-                String preferenceKey = "org.team4384.Scout.NAME";
-                SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
+                final String preferenceKey = "org.team4384.Scout.NAME";
+                final SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(preferenceKey, userName);
                 editor.apply();
 
                 //Creates an intent (used to start activities)
-                Intent intent = new Intent(this, ScoutingActivity.class);
+                final Intent intent = new Intent(this, ScoutingActivity.class);
                 //launches the main scouting activity
                 startActivity(intent);
+
+                break;
+
+            default:
+
+                break;
 
 
         }

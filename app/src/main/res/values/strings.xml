@@ -91,4 +91,10 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string-array name="loading_method_array">
+        <item>No Loading Method</item>
+        <item>Human Loading Only</item>
+        <item>Floor Loading Only</item>
+        <item>Both Loading Methods</item>
+    </string-array>
 </resources>

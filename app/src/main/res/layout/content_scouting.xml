@@ -4,21 +4,214 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_scouting" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="org.team4384.scout.ScoutingActivity">
+    tools:showIn="@layout/activity_scouting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.team4384.scout.ScoutingActivity"
+    android:clickable="false">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <TextView android:text="Hello User! Fill out some basic information and let's get started!"
+        <TextView android:text="Hello User!\nFill out some basic info and let&apos;s get started!"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="30sp"
             android:textSize="20sp"
-            android:id="@+id/scrollText" />
+            android:id="@+id/scrollText"
+            android:layout_alignStart="@+id/teamNumber"
+            android:layout_alignEnd="@+id/teamNumber"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="275sp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="140dp"
+            android:hint="Team Number"
+            android:inputType="number"
+            android:gravity="center_horizontal"
+            android:id="@+id/teamNumber"
+            android:imeOptions="actionDone"/>
+
+        <EditText
+            android:layout_width="275sp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/teamNumber"
+            android:hint="Match Number"
+            android:inputType="number"
+            android:gravity="center_horizontal"
+            android:id="@+id/matchNumber"
+            android:imeOptions="actionDone"/>
+
+
+        <EditText
+            android:layout_width="275sp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/numGameBalls"
+            android:layout_below="@+id/matchNumber"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:hint="Number of Scored Game Balls"
+            android:gravity="center_horizontal"
+            android:imeOptions="actionDone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Which of the Special Balls were held?"
+            android:id="@+id/specialBallHeldText"
+            android:textSize="20sp"
+            android:layout_below="@+id/numGameBalls"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cue Ball"
+            android:id="@+id/cueBallHeldBool"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_below="@+id/specialBallHeldText"
+            android:layout_alignStart="@+id/scrollText"
+            android:layout_marginTop="20dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8 Ball"
+            android:id="@+id/eightBallHeldBool"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_below="@+id/specialBallHeldText"
+            android:layout_alignEnd="@+id/scrollText"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Which of the Special Balls were scored?"
+            android:id="@+id/specialBallScoredText"
+            android:textSize="20sp"
+            android:layout_below="@+id/specialBallHeldText"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cue Ball"
+            android:id="@+id/cueBallScoredBool"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_below="@+id/specialBallScoredText"
+            android:layout_alignStart="@+id/scrollText"
+            android:layout_marginTop="20dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8 Ball"
+            android:id="@+id/eightBallScoredBool"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/cueBallScoredBool"
+            android:layout_alignEnd="@+id/scrollText" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/specialBallScoredText"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:id="@+id/loadingLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Method: "
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:id="@+id/loadingText"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loadingMethodSpinner"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Which balls can the robot hold?"
+            android:textSize="20sp"
+            android:id="@+id/ballHoldText"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/loadingLayout"
+            android:layout_marginTop="50dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Balls"
+            android:id="@+id/canHoldGameBall"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_below="@id/ballHoldText"
+            android:layout_marginTop="20dp"
+            android:layout_alignEnd="@id/scrollText"
+            android:layout_marginRight="160dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Special Balls"
+            android:id="@+id/canHoldSpecialBall"
+            android:checked="false"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/canHoldGameBall"
+            android:layout_alignStart="@+id/scrollText"
+            android:layout_marginLeft="140dp" />
+
+        <EditText
+            android:layout_width="275sp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="85dp"
+            android:layout_below="@id/ballHoldText"
+            android:hint="Other Comments"
+            android:gravity="center_horizontal"
+            android:id="@+id/userComments"
+            android:inputType="textImeMultiLine"
+            android:imeOptions="actionDone"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/saveDataButton"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ballHoldText"
+            android:layout_marginTop="150dp"/>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/snackbarlocation">
+        </android.support.design.widget.CoordinatorLayout>
 
     </RelativeLayout>
 
