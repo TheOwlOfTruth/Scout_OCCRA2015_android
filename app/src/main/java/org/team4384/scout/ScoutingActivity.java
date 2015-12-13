@@ -1,11 +1,9 @@
 package org.team4384.scout;
 
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -25,11 +24,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 
 
 public class ScoutingActivity extends AppCompatActivity {
@@ -65,9 +62,8 @@ public class ScoutingActivity extends AppCompatActivity {
                 if (editTeamNumber.getText().toString().isEmpty() || editMatchNumber.getText().toString().isEmpty() || editNumGameBalls.getText().toString().isEmpty()) {
                     Snackbar.make(view, "Make sure you filled out the whole form!", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(view, "Saving Data...", Snackbar.LENGTH_LONG).show();
                     saveScoutingData();
-                    Snackbar.make(view, "Data Saved.", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Data has been saved.", Snackbar.LENGTH_SHORT).show();
 
                 }
             }
@@ -96,6 +92,7 @@ public class ScoutingActivity extends AppCompatActivity {
         scrollText.setText(greetText);
 
     }
+
 
     private void saveScoutingData() {
 
@@ -129,8 +126,8 @@ public class ScoutingActivity extends AppCompatActivity {
 
         File folderLocation = new File(Environment.getExternalStorageDirectory() + File.separator +
                 "Scout");
-        try{
-            if(!folderLocation.exists()) {
+        try {
+            if (!folderLocation.exists()) {
 
                 folderLocation.mkdirs();
 
@@ -162,17 +159,65 @@ public class ScoutingActivity extends AppCompatActivity {
                 FileOutputStream fileOut = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "Scout" + File.separator + "ScoutingData.xlsx");
                 wb.write(fileOut);
                 fileOut.close();
+
+                final SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("org.team4384.Scout.NEXT_EMPTY_ROW", 1);
+                editor.apply();
+
             }
         }
-        catch(IOException e) {
-            Snackbar.make(findViewById(R.id.snackbarlocation),
-                    "There was an error. Please try again", Snackbar.LENGTH_SHORT).show();
+        catch(IOException e){
+            Snackbar.make(findViewById(R.id.snackbarlocation), "There was an error. Please try again", Snackbar.LENGTH_SHORT);
         }
 
+        try {
+            // Once confirming that the file exists, creates references to the workbook to commence data writing.
+            File dataPath = new File(Environment.getExternalStorageDirectory() + File.separator + "Scout" + File.separator + "ScoutingData.xlsx");
+            FileInputStream dataLocationStream = new FileInputStream(dataPath);
+            XSSFWorkbook wb = new XSSFWorkbook(dataLocationStream);
+            Sheet dataSheet = wb.getSheetAt(0);
 
-        //TODO
+
+            //Finds the next empty row, based on the NEXT_EMPTY_ROW preference
+            final SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
+            int nextEmptyRow = preferences.getInt("org.team4384.Scout.NEXT_EMPTY_ROW", 2);
+
+
+
+
+            //Since the row is empty, create it.
+            Row row = dataSheet.createRow(nextEmptyRow);
+
+            //inputs the data into the excel file
+            row.createCell(1).setCellValue(teamNumber);
+            row.createCell(2).setCellValue(matchNumber);
+            row.createCell(3).setCellValue(numGameBalls);
+            row.createCell(4).setCellValue(wasCueBallHeld);
+            row.createCell(5).setCellValue(wasEightBallHeld);
+            row.createCell(6).setCellValue(wasCueBallScored);
+            row.createCell(7).setCellValue(wasEightBallScored);
+            row.createCell(8).setCellValue(loadingMethod);
+            row.createCell(9).setCellValue(canHoldGameBalls);
+            row.createCell(10).setCellValue(canHoldSpecialBalls);
+            row.createCell(11).setCellValue(comments);
+            row.createCell(12).setCellValue(scouterName);
+
+            FileOutputStream fileOut = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "Scout" + File.separator + "ScoutingData.xlsx");
+            wb.write(fileOut);
+            fileOut.close();
+
+            nextEmptyRow += 1;
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("org.team4384.Scout.NEXT_EMPTY_ROW", nextEmptyRow);
+            editor.apply();
+
+
+        }
+        catch (IOException e) {
+            Snackbar.make(findViewById(R.id.snackbarlocation), "There was an error. Please try again.", Snackbar.LENGTH_SHORT).show();
+        }
 
     }
-
 
 }
