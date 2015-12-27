@@ -3,7 +3,6 @@ package org.team4384.scout;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -131,8 +128,6 @@ public class ScoutingActivity extends AppCompatActivity {
 
                 folderLocation.mkdirs();
 
-                File scoutingData = new File(folderLocation, "ScoutingData.xlsx");
-
                 Workbook wb = new XSSFWorkbook();
                 CreationHelper createHelper = wb.getCreationHelper();
                 Sheet sheet = wb.createSheet("new sheet");
@@ -212,6 +207,18 @@ public class ScoutingActivity extends AppCompatActivity {
             editor.putInt("org.team4384.Scout.NEXT_EMPTY_ROW", nextEmptyRow);
             editor.apply();
 
+            //Clears the text boxes
+            editTeamNumber.getText().clear();
+            editMatchNumber.getText().clear();
+            editNumGameBalls.getText().clear();
+            checkCueBallHeld.setChecked(false);
+            checkEightBallHeld.setChecked(false);
+            checkCueBallScored.setChecked(false);
+            checkEightBallScored.setChecked(false);
+            spinnerLoadingMethod.setSelection(0);
+            checkCanHoldGameBalls.setChecked(false);
+            checkCanHoldSpecialBalls.setChecked(false);
+            editComments.getText().clear();
 
         }
         catch (IOException e) {
