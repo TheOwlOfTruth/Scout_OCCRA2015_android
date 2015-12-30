@@ -8,7 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.team4384.scout.ScoutingActivity"
-    android:clickable="false">
+    android:clickable="false"
+    android:keepScreenOn="true">
 
     <RelativeLayout
         android:layout_width="fill_parent"
