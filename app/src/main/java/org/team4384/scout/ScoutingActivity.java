@@ -67,7 +67,6 @@ public class ScoutingActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private String getUserName() {
@@ -155,6 +154,7 @@ public class ScoutingActivity extends AppCompatActivity {
                 wb.write(fileOut);
                 fileOut.close();
 
+                //Updates the row number
                 final SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt("org.team4384.Scout.NEXT_EMPTY_ROW", 1);
@@ -173,16 +173,13 @@ public class ScoutingActivity extends AppCompatActivity {
             XSSFWorkbook wb = new XSSFWorkbook(dataLocationStream);
             Sheet dataSheet = wb.getSheetAt(0);
 
-
             //Finds the next empty row, based on the NEXT_EMPTY_ROW preference
             final SharedPreferences preferences = this.getSharedPreferences("myPrefs", MODE_PRIVATE);
             int nextEmptyRow = preferences.getInt("org.team4384.Scout.NEXT_EMPTY_ROW", 2);
 
-
-
-
             //Since the row is empty, create it.
             Row row = dataSheet.createRow(nextEmptyRow);
+
 
             //inputs the data into the excel file
             row.createCell(1).setCellValue(teamNumber);
@@ -226,5 +223,6 @@ public class ScoutingActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
